@@ -1,14 +1,35 @@
-window.addEventListener('load', () => {
-  const sounds = document.querySelectorAll(".sound")
-  const pads = document.querySelectorAll(".pads div")
+window.addEventListener("load", () => {
+  const sounds = document.querySelectorAll(".sound");
+  const pads = document.querySelectorAll(".pads div");
 
-  console.log(sounds)
+  const visual = document.querySelector(".visual");
+  const colors = [
+    "#26294a",
+    "#03c383",
+    "#01545a",
+    "#ed0345",
+    "#710162",
+    "#fbbf45",
+  ];
 
-  pads.forEach(pad =>{
-    pad.addEventListener('click', function(){
-      sounds[4]
+  // console.log(sounds[4])
+
+  pads.forEach((pad, index) => {
+    pad.addEventListener("click", function () {
+      sounds[index].currentTime = 0;
+      sounds[index].play();
+
+      createBubbles(index);
+    });
+  });
+  // function that make color bubbles:
+  const createBubbles = (index) => {
+    const bubble = document.createElement("div");
+    visual.appendChild(bubble);
+    bubble.style.backgroundColor = colors[index];
+    bubble.style.animation = "jump 1s ease";
+    bubble.addEventListener('animationend', function(){
+      visual.removeChild(this)
     })
-  })
-
-
-})
+  };
+});
